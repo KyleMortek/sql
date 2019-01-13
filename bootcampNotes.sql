@@ -36,9 +36,9 @@ where amount in(7.99, 8.99);
 -- LIKE STATEMENT BELOW
 SELECT first_name, last_name 
 from customer
--- where first_name like '%y'--any characters that end in y 
--- where first_name like '_her%'-- any number of chaacters can be placed in that underscore 
--- where first_name ILIKE 'bar%'-- no case sensitivity
+where first_name like '%y'--any characters that end in y 
+where first_name like '_her%'-- any number of chaacters can be placed in that underscore 
+where first_name ILIKE 'bar%'-- no case sensitivity
 where first_name LIKE 'BAR%'-- wont find anything cause it needs to match. ABORT
 
 -- how many payment transactions were greater than 5 dollars 
@@ -73,3 +73,45 @@ and replacement_cost BETWEEN 5.00 and 15.00
 -- how many films have the word truman somewhere in the title
 select count(*) from film
 where title ilike '%truman%'-- somewhere in the title
+
+-- getting the average amount 
+SELECT avg(amount) from payment
+-- getting the roundded average
+SELECT round(avg(amount)) from payment
+-- getting the roundded average to 2 decimal places
+SELECT round(avg(amount),2) from payment
+-- below gets the count of how many payments were 0.00 dollars 
+SELECT COUNT(amount) FROM payment
+WHERE amount = 0.00; 
+-- getting the minimum amount
+SELECT MIN(amount) FROM payment
+-- getting the max amount
+SELECT Max(amount) FROM payment
+-- getting the sum of all the amounts in payment 
+SELECT SUM(amount) FROM payment
+-- getting the ROUNDED sum of all the amounts in payment 
+SELECT ROUND(SUM(amount),1) FROM payment
+-- groups the same transcctions together ABORT
+SELECT customer_id
+FROM payment
+GROUP BY customer_id 
+-- group by with order by 
+SELECT customer_id, sum(amount)
+FROM payment
+GROUP BY customer_id
+order by sum(amount) desc
+-- more group by notes 
+select staff_id, count(payment_id)
+from payment
+group by staff_id
+-- below counts the number of different types of ratings
+select rating, count(rating) from film 
+group by rating
+-- continued group by 
+select rental_duration, count(rental_duration)
+from film
+GROUP By rental_duration
+-- group by average ratings
+select rating, avg(rental_rate)
+from film 
+group by rating
