@@ -115,3 +115,20 @@ GROUP By rental_duration
 select rating, avg(rental_rate)
 from film 
 group by rating
+-- group by staff_id, return the total number of payments per staffid and total
+-- amount each staff id made. 
+select staff_id, count(staff_id),sum(amount)
+from payment
+group by staff_id
+-- get the average replacement cost of each rating of movie 
+SELECT rating, round(avg(replacement_cost),2)
+from film
+group by rating
+-- get the top 5 spenders by customer id so you can give coupons to them ABORT
+-- for being such good customers 
+select customer_id, sum(amount) 
+from payment
+group by customer_id
+order by sum(amount) desc
+limit 5 
+-- HAVING LECTURE 
