@@ -132,3 +132,32 @@ group by customer_id
 order by sum(amount) desc
 limit 5 
 -- HAVING LECTURE 
+-- having clause ABORT
+select customer_id, sum(amount)
+from  payment
+group by customer_id
+having sum(amount) >200
+--
+select store_id, count( customer_id)
+from customer
+group BY store_id
+having count(customer_id)>300
+--find the average rate for each rating that are under 3 dollars 
+select rating, avg(rental_rate)
+from film
+where rating    in ('R', 'G','PG' )
+group by rating
+having avg(rental_rate)<3
+-- having challenege find cusotmers that have greater than or equal to 40 
+--transacitons
+select customer_id, count(*) 
+from payment
+group by customer_id
+having count(*)>=40
+--having challenge 
+-- find the ratings of movies that had an average rental duration of more than 5
+--days 
+select rating, avg(rental_duration)
+from film
+group by rating 
+having avg(rental_duration) >5
