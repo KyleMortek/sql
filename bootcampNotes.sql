@@ -161,3 +161,58 @@ select rating, avg(rental_duration)
 from film
 group by rating 
 having avg(rental_duration) >5
+--Return the customer IDs of customers who have spent at least $110 with the staff member who has an ID of 2.</p>
+
+select customer_id, staff_id, sum(amount) --,sum(amount)
+from payment
+where staff_id = 2
+group by staff_id, customer_id
+-- order by sum desc
+having sum(amount) > 110
+-- the having only works when there is a WHERE  and a GROUP BY claue before it?
+
+
+
+--How many films begin with the letter J?------------------------------?2
+SELECT count(title)
+from film
+where title ilike 'j%'-- ilike ignores case sensiviity 
+-- where title like 'J%'--check case sensitivity 
+-- where title ilike '%j%'-- check anywhere in the text for the asking CHAR
+-- where title ilike 'j_%'--check if there is a letter after j and starts with j
+-- where title ilike '%j_%'--checks if there is a letter after j and before it
+
+--What customer has the highest customer ID number whose name starts-------?3
+--with an 'E' and has an address id lower than 500?
+select customer_id,first_name, last_name, address_id
+from customer
+where first_name like 'E_%' and address_id <500 
+order by customer_id desc
+limit 1
+
+-- AS examples ------changes the name---------------ASAS AS AS
+select customer_id, sum(amount) as total_spend
+from payment
+group by customer_id
+
+-- JOINS 
+select 
+customer.customer_id ,
+customer.first_name,
+last_name,
+email,
+amount, 
+payment_date
+from customer
+inner join payment on payment.customer_id = customer.customer_id
+WHERE customer.customer_id = 2
+
+--more joins 
+select payment_id, first_name, last_name from payment
+inner join staff on payment.staff_id = staff.staff_id
+-- more joins 
+select title,count(title)as copies_at_store_1 from inventory
+INNER JOIN film on inventory.film_id = film.film_id
+-- order by inventory.store_id asc
+where inventory.store_id = 1
+group by title
