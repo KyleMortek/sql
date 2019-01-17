@@ -216,3 +216,75 @@ INNER JOIN film on inventory.film_id = film.film_id
 -- order by inventory.store_id asc
 where inventory.store_id = 1
 group by title
+order by title
+-- order by title
+-- having count(title) > 3
+-- order by title
+----------------------------MORE INNER JOINS------------------------------
+-- below joins language with film language_id so you can see both together
+select film.title, language.name AS movieLang 
+from film
+INNER JOIN language 
+-- or--- INNER JOIN language AS lan
+ON language.language_id = film.language_id
+-- or---ON lan.language_id = film.language_id
+-- the commeneted out section shows you can you AS to shorten the code 
+-- so the code looks more neat 
+
+--NOTE: USING THE 'AS' STATEMENT IS NOT NEEDED. IT WILL STILL WORK WITHOUT IT
+--SELECT * FROM TABLEa ______
+--INNER JOIN TABLEb ______ 
+--ON TABLEa.NAME = TABLEb.NAME
+
+-------------------FULL OUTER JOIN------------------------------------------
+-- SELECT * FROM TABLEa
+--FULL OUTER JOIN TABLEb
+--ON TABLEa.NAME = TABLEb.NAME
+-- RETURNS ALL INFORMATION FROM BOTH TABLES 
+-------------------LEFT OUTER JOIN------------------------------------------
+-- SELECT * FROM TABLEa
+-- LEFT OUTER JOIN TABLEb
+-- ON TABLEa.NAME - TABLEb.NAME
+--RETURNS EVERYTHING IN TABLE a PLUS WHAT TABLE a HAS IN COMMON WITH TABLEb
+-------------------LEFT OUTER JOIN WITH WHERE STATEMENT---------------------
+-- SELECT * FROM TABLEa
+-- LEFT OUTER JOIN TABLEb
+-- ON TABLEa.NAME - TABLEb.NAME
+-- WHERE TABLEb.ID IS NULL
+--RETURNS ONLY THE UNIWUE INFORMATION FROM TABLEa NOTHING IN COMMON WITH TABLEb
+------------------FULL OUTER JOIN WITH WHERE STATEMENT---------------------
+-- SELECT * FROM TABLEa
+-- FULL OUTER JOIN TABLEb
+-- ON TABLEa.NAME = TABLEb.NAME
+-- WHERE TABLEa.ID IS NULL 
+-- OR TABLEb.ID IS NULL 
+-- RETURN ONLY UNIQUE INFORMATION FROM BOTH TABLES, THEY DONT HAVE IN COMMON
+
+----- copy of all the movies that are not in inventory -------------
+select film.film_id,film.title,inventory_id
+from film
+LEFT OUTER JOIN inventory on inventory.film_id = film.film_id
+where inventory.film_id is null
+---------or you can do it this way 
+----- copy of all the movies that are not in inventory -------------
+select film.film_id,film.title,inventory_id
+from film
+LEFT OUTER JOIN inventory on inventory.film_id = film.film_id
+where inventory_id is NULL
+order by title
+--- both the same thing above 
+
+
+-----------------------UNION statement------------------------------
+---- union will delete duplicate rows
+----- to avoid that use UNION ALL
+----------------------extract--------------------------------------
+select * from payment
+select payment_date from payment
+select extract(day from payment_date) from payment
+-- more extract
+select sum(amount), EXTRACT(month from payment_date) as MONTH
+from payment
+GROUP by MONTH
+order by sum(amount)
+
