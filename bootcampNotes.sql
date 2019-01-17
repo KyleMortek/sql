@@ -288,3 +288,38 @@ from payment
 GROUP by MONTH
 order by sum(amount)
 
+-- using || to concat strings ----------------------------------------
+SELECT first_name || ' ' ||last_name as full_name 
+from customer
+
+
+------------------------------ subquery -------------------------------
+-- a subquery is a query within a query 
+SELECT film_id, title, rental_rate FROM film
+WHERE rental_rate > (SELECT AVG(rental_rate)FROM film)
+-- more complex subquery-------------------- 
+select film_id, title
+from film
+where film_id in 
+(select inventory.film_id 
+from rental 
+inner join  inventory on inventory.inventory_id = rental.inventory_id
+-- we are joining the inventory table with the rental table inventory_id above 
+WHERE
+rental_date BETWEEN '2005-05-29' AND '2005-05-30')
+---------------------^^^^more complex subquery^^^^------------------------
+--
+-- SELF JOIN
+select 
+a.customer_id, a.first_name, a.last_name,b.customer_id, b.first_name,b.last_name
+from customer as a, customer as b 
+where a.first_name = b.last_name--
+-- SELF JOIN simplified
+select 
+a.customer_id, a.first_name, a.last_name,b.customer_id, b.first_name,b.last_name
+from customer as a
+join customer as b 
+on a.first_name = b.last_name
+
+--search manager employ self join in google. usually something that pops up in
+-- an interview 
