@@ -576,3 +576,53 @@ alter table link RENAME COLUMN title TO new_title
 -- changes the table name all together WONT BE NAMED link anymore 
 alter table link rename to url_table 
 -------------------alter is complete ------------------2019-01-19 16:38:30
+-------------------drop table -------------------------2019-01-19 16:39:36
+drop table [if exists] table_name -- the if exists is optional to put 
+drop table if exists test_two --deletes the table that you made 
+drop table if exists test_two RESTRICT -- postgresql uses this by default
+-- 2019-01-19 16:52:13
+-----------------drop table complete------------------2019-01-19 16:53:49
+--------------------check constraint -----------------2019-01-19 16:54:08
+
+create table new_users(
+  id serial primary key,
+  first_name VARCHAR(50),
+  birthday DATE check(birthday > '1900-01-01'),
+  join_date Date check(join_date > birthday),
+  salary integer check (salary>0)
+)
+
+create table checktest(
+   sales integer CONSTRAINT positive_sales CHECK (sales>0)
+)
+
+insert into checktest(sales)
+values (10) -- only accepts positive sales 
+------------------check done -------------------------------2019-01-19 17:06:55
+------------------null and not null statements ---------2019-01-19 17:07:10
+create table learn_null(
+  first_name VARCHAR(50),
+  sales integer NOT NULL
+)
+insert into learn_null(first_name)
+values('john')-- this will throw an error because sales CANNOT BE NULL
+
+--correct way to do the above because of the constraint
+insert into learn_null(first_name, sales)
+values('john', 12)
+-------------------- null and not null completed --------2019-01-19 17:29:54
+------------------- unique statement/ constraint---------2019-01-19 17:31:33
+-- create new table to show how it works 
+create table people(
+  id serial primary KEY,
+  first_name VARCHAR(50),
+  email VARCHAR(100) UNIQUE
+
+)
+insert into people(id, first_name, email)
+values (1,'joe', 'joe@joe.com')
+-- then try this next 
+insert into people(id, first_name, email)
+values (2,'joeseph', 'joe@joe.com')--this will cause an error 
+-------------------------unique statement completed-------2019-01-19 17:38:42
+
