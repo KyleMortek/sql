@@ -475,3 +475,44 @@ CREATE TABLE leads(
     sign_up_date TIMESTAMP NOT NULL
 )
 --------------------------------crete table section complete --------------
+
+
+--------------------------------insert command------------------------------
+INSERT INTO TABLE (col1,col2,col3,....)
+VALUES (val1,val2,val3,......);-- this is for a single row
+
+INSERT INTO TABLE (col1,col2,col3,....)
+VALUES  (val1,val2,val3,......),
+        (val1,val2,val3,......),.....; -- multi row insert
+
+--insert data from another tbale 
+INSERT INTO TABLE
+SELECT col1,col2,...
+FROM another_table
+WHERE  condition;
+
+2019-01-19 14:14:12
+--- NOTE updated tabe size to 2 spaces 
+-- first create a new table 
+CREATE TABLE link(
+  ID serial PRIMARY KEY,
+  url VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  description VARCHAR(255),
+  rel VARCHAR(55)
+)
+
+select * from link
+INSERT INTO link(url,name)
+VALUES  ('www.Yahoo.com','Yahoo'),
+        ('www.bing.com', 'Bing'),
+        ('www.amazon.com', 'Amazon')
+-- SELECT * from link
+
+-- below i create a copy of link table using 'like'
+CREATE TABLE link_copy (Like link);
+-- select* from link_copy
+insert into link_copy
+select * from link
+where name = 'Bing'-- here i am inserting a copy of the bing row to link_copy
+select * from link_copy -- this is the check to make sure it worked 
