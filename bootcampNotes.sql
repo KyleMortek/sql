@@ -516,3 +516,27 @@ insert into link_copy
 select * from link
 where name = 'Bing'-- here i am inserting a copy of the bing row to link_copy
 select * from link_copy -- this is the check to make sure it worked 
+
+
+------------------------------UPDATE command------------------------------
+
+Update table 
+set 	col1= val1, 
+			col2 = val2,....
+where condition;
+
+-- SELECT * from link 
+UPDATE link
+SET description = 'Empty description';
+-- more on update  ----------------update using WHERE condition
+update link
+SET description= 'Name starts with an A'
+where name like 'A%'
+--select * from link 
+
+update link
+set description = 'New description'
+where id = 1
+RETURNING id, url, name, description --<-- returns the edited row 
+
+-----------------------UPDATE completed--------------2019-01-19 15:09:51
