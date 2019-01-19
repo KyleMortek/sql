@@ -626,3 +626,41 @@ insert into people(id, first_name, email)
 values (2,'joeseph', 'joe@joe.com')--this will cause an error 
 -------------------------unique statement completed-------2019-01-19 17:38:42
 
+--------------------assessment test 3----------------------2019-01-19 17:40:36
+-- first create database called School
+create DATABASE School
+
+create table teacher(
+  teacher_id serial PRIMARY KEY,
+  first_name VARCHAR(50) Not null,
+  last_name VARCHAR(50) NOT NULL,
+  home_room_number VARCHAR(50) NOT NULL,
+  department VARCHAR(50) NOT NULL,
+  email VARCHAR(255) UNIQUE Null,
+  phone VARCHAR(25) UNIQUE  null
+);
+
+create table student(
+  stu_id serial PRIMARY KEY,
+  first_name VARCHAR(50) Not null,
+  last_name VARCHAR(50) NOT NULL,
+  home_room_number VARCHAR(50) NOT NULL,
+  email VARCHAR(255) UNIQUE Null,
+  phone VARCHAR(25) UNIQUE null, 
+  grad_year integer not null CONSTRAINT positive_year CHECK(grad_year>2018)
+);
+
+--Once you've made the tables, insert a student named Mark Watney (student_id=1)
+--who has a phone number of 777-555-1234 and doesn't have an email. He 
+--graduates in 2035 and has 5 as a homeroom number
+insert into student (first_name,last_name,phone,email,grad_year,home_room_number)
+values ('Mark','Watney','777-555-1234','',2035,'5')
+
+-- Then insert a teacher names Jonas Salk (teacher_id = 1) who as a homeroom
+-- number of 5 and is from the Biology department. His contact info is: 
+-- jsalk@school.org and a phone number of 777-555-4321.
+insert into 
+teacher (first_name,last_name, email, home_room_number,department,phone)
+values ('Jonas', 'Salk', 'jsalk@school.org', '5', 'Biology', '777-555-4321' )
+-------------------------assessment test 3 completed ------2019-01-19 18:21:54
+
