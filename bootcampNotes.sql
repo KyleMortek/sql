@@ -540,3 +540,17 @@ where id = 1
 RETURNING id, url, name, description --<-- returns the edited row 
 
 -----------------------UPDATE completed--------------2019-01-19 15:09:51
+-----------------------delete statement -------------2019-01-19 15:59:14
+DELETE FROM table_name
+WHERE condition--specifiy which row to delete 
+--if no where condition then youll delete all rows 
+
+--examples 
+DELETE FROM link
+where name LIKE 'B%'
+-- deletes all row that start with a captial B in the name 
+
+DELETE FROM link
+where name = 'A'
+RETURNING * -- returns all the colmns frmo the rows that were deleted
+------------------delete completed------------------2019-01-19 16:04:34
