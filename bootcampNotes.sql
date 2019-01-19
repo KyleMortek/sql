@@ -663,4 +663,25 @@ insert into
 teacher (first_name,last_name, email, home_room_number,department,phone)
 values ('Jonas', 'Salk', 'jsalk@school.org', '5', 'Biology', '777-555-4321' )
 -------------------------assessment test 3 completed ------2019-01-19 18:21:54
+------------------------view statement --------------------2019-01-19 18:24:11
 
+create view view_name as query
+
+--- example below
+create view  customer_info AS
+select first_name,last_name,email,address, phone
+from customer
+join address
+on customer.address_id = address.address_id
+
+select * from customer_info-- you can now use this to see the above statement 
+-- this creates the saved view of the select joins statement for easier access
+
+-- alter view allows you to rename the view 
+--example
+ALTER VIEW customer_info RENAME TO customer_master_list
+select * from customer_master_list
+-- it has now renamed to customer_master_list
+-- want to remove a view? 
+Drop VIEW customer_master_list
+-----------------------------view completed --------------2019-01-19 18:35:53
