@@ -554,3 +554,25 @@ DELETE FROM link
 where name = 'A'
 RETURNING * -- returns all the colmns frmo the rows that were deleted
 ------------------delete completed------------------2019-01-19 16:04:34
+------------------Alter statement ------------------2019-01-19 16:15:44
+ALTER table table_name action;
+--note 
+DROP TABLE IF EXISTS link; -- to delete that table
+
+--make new link table 
+create TABLE link(
+  link_id serial PRIMARY KEY,
+  title varchar(512)NOT NULL,
+  url VARCHAR(1024)NOT NULL UNIQUE
+);
+
+ALTER TABLE link ADD COLUMN active BOOLEAN;
+-- adds active boolean type column
+alter table link drop COLUMN active
+-- again drop that column we just added 
+
+--change names of columns
+alter table link RENAME COLUMN title TO new_title
+-- changes the table name all together WONT BE NAMED link anymore 
+alter table link rename to url_table 
+-------------------alter is complete ------------------2019-01-19 16:38:30
